@@ -50,11 +50,30 @@ The Ethiopian Orthodox Tewahedo Community Guide makes English-language knowledge
      numbers fit the structure of your documents.
      A review-heavy corpus warrants different chunking than a long FAQ. -->
 
-**Chunk size:**
+**Chunk size:** 400 - 500 characters
 
-**Overlap:**
+**Overlap:** 50 characters
 
 **Reasoning:**
+
+The documents fall into three types:
+
+**Slide decks (Mysteries series):** Each slide covers one idea with a few bullet
+points and scripture references. A 400–500 token chunk fits one full slide —
+small enough to stay focused, big enough to keep a teaching and its evidence
+together.
+
+**Fasting articles (MKVCM blog posts):** Short paragraphs, one fast per document.
+This chunk size groups 2–3 related paragraphs together naturally, like a definition
+plus its biblical basis.
+
+**Longer documents (History, Worship, Literature & Art):** These have clear section
+headings. Each chunk stays within one section, and the heading is kept at the top
+so retrieved chunks always have context.
+
+**Why 50-token overlap:** These documents sometimes finish a thought at the end of
+one paragraph and continue it in the next. A small overlap makes sure that
+connection isn't lost.
 
 ---
 
@@ -68,9 +87,15 @@ The Ethiopian Orthodox Tewahedo Community Guide makes English-language knowledge
 
 **Embedding model:**
 
+- all-MiniLM-L6-v2 via sentence-transformers
+
 **Top-k:**
 
+- I'll be retrieving k=4 chunks per query. Most of my resources are focused and narrow enough that the chunks are more likely to be related and correct.
+
 **Production tradeoff reflection:**
+
+- The biggest limitation is the 256 token limit, which will be truncated if longer than that. However it is free and local which also helps with the privacy aspect.
 
 ---
 
@@ -81,13 +106,13 @@ The Ethiopian Orthodox Tewahedo Community Guide makes English-language knowledge
      is right or wrong. "What are good dining halls?" is too vague.
      "What do students say about wait times at [dining hall name] during lunch?" is testable. -->
 
-| #   | Question | Expected answer |
-| --- | -------- | --------------- |
-| 1   |          |                 |
-| 2   |          |                 |
-| 3   |          |                 |
-| 4   |          |                 |
-| 5   |          |                 |
+| #   | Question                                                                             | Expected answer                                                                                                                                                                                                            |
+| --- | ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | What are the five pillars of mystery in the Ethiopian Orthodox Church?               | The Mystery of the Holy Trinity, the Mystery of the Incarnation, the Mystery of Baptism, the Mystery of the Holy Eucharist, and the Mystery of the Resurrection of the Dead.                                               |
+| 2   | How many days is the Great Lent (Abiy Tsom) and how is it structured?                | 55 days, divided into three periods: Tsome Hirkal (8 days), Tsome Arba (40 days), and Tsome Himamat (7 days of Holy Week).                                                                                                 |
+| 3   | When are boys and girls baptized in the Ethiopian Orthodox Church?                   | Boys are baptized 40 days after birth and girls 80 days after birth, following the biblical cleansing period in Leviticus 12:1-8.                                                                                          |
+| 4   | What foods are allowed during EOTC fasting periods?                                  | Meat, dairy, and eggs are prohibited. Allowed foods include lentils, split peas, potatoes, carrots, and shiro wat. No food or drink is taken before 3:00 pm.                                                               |
+| 5   | What are the three sections of an Ethiopian Orthodox church and who can access each? | The Maqdas (Holy of Holies) for priests and deacons only; the Keddist for baptized communicants; and the Qene Mahelet (outer ambulatory) for the general congregation, divided into sections for men, women, and Debteras. |
 
 ---
 
@@ -97,9 +122,11 @@ The Ethiopian Orthodox Tewahedo Community Guide makes English-language knowledge
      Consider: noisy or inconsistent documents, missing source attribution, off-topic
      retrieval, chunks that split key information across boundaries. -->
 
-1.
+1. Chunks that split key information accross boundaries
 
-2.
+2. Language barrier (some of the information provided mught not contain the amharic version of a work). For example difference in answer between:
+   - 'How long is Great Lent?' and 'How long is Abiy Tsome?'
+   - Which mean the exact same thing
 
 ---
 
@@ -110,6 +137,8 @@ The Ethiopian Orthodox Tewahedo Community Guide makes English-language knowledge
      Label each stage with the tool or library you're using.
      You can use ASCII art, a Mermaid diagram, or embed a sketch as an image.
      You'll use this diagram as context when prompting AI tools to implement each stage. -->
+
+![alt text](<Screenshot 2026-06-08 at 9.02.46 PM.png>)
 
 ---
 
@@ -124,6 +153,60 @@ The Ethiopian Orthodox Tewahedo Community Guide makes English-language knowledge
      "I'll use AI to help me code" is not a plan.
      "I'll give Claude my Chunking Strategy section and ask it to implement chunk_text()
      with my specified chunk size and overlap" is a plan. -->
+
+### 1. Document Ingestion
+
+- **Tool:** Claude
+- **Input:** My sources table (16 documents), the spec requirement to clean raw text,
+  and my document types (PDFs via pdfplumber, plain text for web pages)
+- **Expected output:** A `load_documents()` function that reads each file,
+  strips navigation text and repeated footers, and returns clean strings with
+  a source label attached to each
+- **Verification:** Print the first 500 characters of each loaded document and
+  confirm no menu text, slide numbers, or URL artifacts remain
+
+### 2. Chunking
+
+- **Tool:** Claude
+- **Input:** My chunking strategy section (400–500 characters, 50 character overlap,
+  RecursiveCharacterTextSplitter, split on paragraph breaks first)
+- **Expected output:** A `chunk_documents()` function that takes the cleaned documents
+  and returns a list of chunks, each with its source label preserved as metadata
+- **Verification:** Print chunk count, average chunk length, and 3 sample chunks
+  from different documents — confirm no chunk cuts mid-sentence or drops its
+  source label
+
+### 3. Embedding + Vector Store
+
+- **Tool:** Claude
+- **Input:** My embedding model section (all-MiniLM-L6-v2, sentence-transformers)
+  and vector store choice (ChromaDB), plus my chunk metadata structure
+- **Expected output:** An `embed_and_store()` function that embeds each chunk and
+  loads it into a local ChromaDB collection with source metadata attached
+- **Verification:** Query ChromaDB for a known phrase ("Abiy Tsom") and confirm
+  the top result comes from the correct document with the correct source label
+
+### 4. Retrieval
+
+- **Tool:** Claude
+- **Input:** My retrieval decisions (top-k = 4, semantic similarity search)
+  and the ChromaDB collection structure from step 3
+- **Expected output:** A `retrieve()` function that takes a user query, embeds it,
+  and returns the top 4 chunks with their source labels
+- **Verification:** Run each of my 5 test questions through retrieve() and manually
+  check that the returned chunks actually contain the expected answer
+
+### 5. Generation
+
+- **Tool:** Claude
+- **Input:** The spec requirement for grounded responses and source citations,
+  my Groq model choice (llama-3.3-70b-versatile), and the output of retrieve()
+- **Expected output:** A `generate()` function that builds a prompt from the
+  retrieved chunks and instructs the LLM to answer only from provided context
+  and cite its sources
+- **Verification:** Run all 5 test questions end-to-end and check that every answer
+  matches the expected answer in my evaluation table and includes at least one
+  source citation — flag any response that introduces information not in the chunks
 
 **Milestone 3 — Ingestion and chunking:**
 
