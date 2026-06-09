@@ -260,17 +260,22 @@ splitter = RecursiveCharacterTextSplitter(
 def chunk_document(text: str, source_name: str, source_id: int) -> list[dict]:
     """
     Split cleaned text into chunks and attach source metadata to each.
-    Returns a list of dicts with keys: chunk_id, source_id, source, text, char_count
+    Returns a list of dicts with keys:
+    chunk_id, source_id, source, chunk_index, text, char_count
+
+    `chunk_index` is the chunk's 0-based position within its source document,
+    kept as an explicit field (not just encoded in chunk_id) for attribution.
     """
     raw_chunks = splitter.split_text(text)
     chunks = []
     for i, chunk_text in enumerate(raw_chunks):
         chunks.append({
-            "chunk_id":   f"src{source_id:02d}_chunk{i:04d}",
-            "source_id":  source_id,
-            "source":     source_name,
-            "text":       chunk_text.strip(),
-            "char_count": len(chunk_text.strip()),
+            "chunk_id":    f"src{source_id:02d}_chunk{i:04d}",
+            "source_id":   source_id,
+            "source":      source_name,
+            "chunk_index": i,
+            "text":        chunk_text.strip(),
+            "char_count":  len(chunk_text.strip()),
         })
     return chunks
 
