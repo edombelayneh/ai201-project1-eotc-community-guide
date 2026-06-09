@@ -19,25 +19,25 @@ This knowledge is genuinely hard to find through official channels because most 
 
 All 17 sources are ingested as **local PDFs under `docs/`** (see Spec Reflection for why). The "Origin" column records where each PDF was sourced for citation provenance.
 
-| #   | Source | Type | Origin |
-| --- | ------ | ---- | ------ |
-| 1   | Fasting and Abstinence in the EOTC | PDF | Wikipedia |
-| 2   | The Great Lent | PDF | eotcmk.org |
-| 3   | The Fast of the Apostles | PDF | eotcmk.org |
-| 4   | Nineveh's Fast | PDF | eotcmk.org |
-| 5   | The Nativity Fast | PDF | eotcmk.org |
-| 6   | Why Did Prophets Fast? | PDF | eotcmk.org |
-| 7   | History of the Ethiopian Orthodox Tewahedo Church | PDF | Course material (native PDF) |
-| 8   | Worship in the Ethiopian Orthodox Church | PDF | ethiopianorthodox.org |
-| 9   | The Role of the EOTC in Literature and Art | PDF | ethiopianorthodox.org |
-| 10  | Introduction to Church Sacraments | PDF | ethiopianorthodox.org |
-| 11  | The Bible (EOTC Canon) | PDF | ethiopianorthodox.org |
-| 12  | Mystery of the Holy Trinity | PDF | MKVCM Dogmatic Theology deck (native PDF) |
-| 13  | Mystery of Incarnation | PDF | MKVCM Dogmatic Theology deck (native PDF) |
-| 14  | Mystery of Baptism | PDF | MKVCM Dogmatic Theology deck (native PDF) |
-| 15  | Mystery of Resurrection | PDF | MKVCM Dogmatic Theology deck (native PDF) |
-| 16  | Saint of the Day — St. Philotheus | PDF | eotcmk.org (Synaxarium) |
-| 17  | Mystery of the Holy Eucharist | PDF | MKVCM Dogmatic Theology deck (native PDF) |
+| #   | Source                                            | Type | Origin                                    |
+| --- | ------------------------------------------------- | ---- | ----------------------------------------- |
+| 1   | Fasting and Abstinence in the EOTC                | PDF  | Wikipedia                                 |
+| 2   | The Great Lent                                    | PDF  | eotcmk.org                                |
+| 3   | The Fast of the Apostles                          | PDF  | eotcmk.org                                |
+| 4   | Nineveh's Fast                                    | PDF  | eotcmk.org                                |
+| 5   | The Nativity Fast                                 | PDF  | eotcmk.org                                |
+| 6   | Why Did Prophets Fast?                            | PDF  | eotcmk.org                                |
+| 7   | History of the Ethiopian Orthodox Tewahedo Church | PDF  | Course material (native PDF)              |
+| 8   | Worship in the Ethiopian Orthodox Church          | PDF  | ethiopianorthodox.org                     |
+| 9   | The Role of the EOTC in Literature and Art        | PDF  | ethiopianorthodox.org                     |
+| 10  | Introduction to Church Sacraments                 | PDF  | ethiopianorthodox.org                     |
+| 11  | The Bible (EOTC Canon)                            | PDF  | ethiopianorthodox.org                     |
+| 12  | Mystery of the Holy Trinity                       | PDF  | MKVCM Dogmatic Theology deck (native PDF) |
+| 13  | Mystery of Incarnation                            | PDF  | MKVCM Dogmatic Theology deck (native PDF) |
+| 14  | Mystery of Baptism                                | PDF  | MKVCM Dogmatic Theology deck (native PDF) |
+| 15  | Mystery of Resurrection                           | PDF  | MKVCM Dogmatic Theology deck (native PDF) |
+| 16  | Saint of the Day — St. Philotheus                 | PDF  | eotcmk.org (Synaxarium)                   |
+| 17  | Mystery of the Holy Eucharist                     | PDF  | MKVCM Dogmatic Theology deck (native PDF) |
 
 Full file paths and original URLs are recorded in `planning.md` and in the `SOURCES` registry in `ingest.py`.
 
@@ -50,6 +50,7 @@ Full file paths and original URLs are recorded in `planning.md` and in the `SOUR
 **Overlap:** 50 characters.
 
 **Preprocessing before chunking:** Text is extracted from PDFs with `pdfplumber`, then cleaned in `ingest.py`:
+
 - Slide-deck **cover slides and the shared "Course Content" table-of-contents pages are dropped entirely** (they carried no teaching content and the TOC listed every mystery, polluting each deck with the others' topics).
 - Site **navigation** (`Home / Amharic / Franćais / Deutsch / Oriental`), **per-page footers** (`EOTC MK US Campus Ministry`, `https://eotcmk.org`), **divider lines** (`____`), bare URLs, Wikipedia citation markers (`[12]`) and the "From Wikipedia…" header are stripped.
 - Source **attribution lines are deliberately kept** (e.g. "Written by Professor Sergew Hable Sellassie…") as citation context.
@@ -80,6 +81,7 @@ Full file paths and original URLs are recorded in `planning.md` and in the `SOUR
 > 4. Be concise and factual. Do not add commentary, opinions, or invented detail.
 
 **Structural choices that enforce grounding (beyond the prompt):**
+
 - Only the **top-4 retrieved chunks** are ever placed in the prompt — the model physically cannot see the rest of the corpus.
 - Each context passage is **headed by exactly the bracketed citation token** the model should reproduce (`[Mystery of Baptism]`), so citations come back clean and verifiable rather than invented.
 - `temperature=0.1` minimizes creative drift away from the source text.
@@ -115,13 +117,13 @@ generic "church" chunk), not from generation. See Failure Case Analysis below.
 
 **Question that failed:** Q5 — "What are the three sections of an Ethiopian Orthodox church and who can access each?" (Expected: Maqdas for priests/deacons, Keddist for baptized communicants, Qene Mahelet for the general congregation.)
 
-**What the system returned:** "I don't have that information in the provided sources." The top-4 retrieved chunks were a Literature & Art chunk about church symbols (distance 0.307), a Worship chunk about *service times* (0.364), a bibliography line (0.375), and a Wikipedia taxonomy fragment (0.396) — none of which describe the three sections.
+**What the system returned:** "I don't have that information in the provided sources." The top-4 retrieved chunks were a Literature & Art chunk about church symbols (distance 0.307), a Worship chunk about _service times_ (0.364), a bibliography line (0.375), and a Wikipedia taxonomy fragment (0.396) — none of which describe the three sections.
 
-**Root cause (tied to a specific pipeline stage):** This is a **two-stage retrieval failure**, and critically *the answer is in the corpus* — it just wasn't retrievable from the user's phrasing.
+**Root cause (tied to a specific pipeline stage):** This is a **two-stage retrieval failure**, and critically _the answer is in the corpus_ — it just wasn't retrievable from the user's phrasing.
 
-1. **Chunking boundary.** The answer lives in the *Worship* document, but the description of the three sections (Maqdes/Sanctuary → Keddist → Qene Mahelet, each with its access rule) is spread across **consecutive chunks 11–14** at the 450-character boundaries. No single chunk holds the full three-part structure, so even a perfect retrieval of one chunk would return only a third of the answer.
+1. **Chunking boundary.** The answer lives in the _Worship_ document, but the description of the three sections (Maqdes/Sanctuary → Keddist → Qene Mahelet, each with its access rule) is spread across **consecutive chunks 11–14** at the 450-character boundaries. No single chunk holds the full three-part structure, so even a perfect retrieval of one chunk would return only a third of the answer.
 
-2. **Embedding semantic gap.** The query says "three sections … who can access each," but the source chunks never use the words "three sections" — they use the Ge'ez proper nouns ("Maqdes," "Qeddusa Queddusan," "Qene Mahelet") and describe access prose-style. So the query embeds *far* from the right chunks. Meanwhile a generic chunk dense with concrete church nouns (Cross, Censer, Chalice, vestments) scored the **lowest distance of any result in the whole eval (0.307)** and out-ranked the real answer, pushing it outside the top 4. I confirmed the data is indexed by re-querying with the proper nouns ("Maqdas Keddist Qene Mahelet who can enter") — that surfaces Worship chunk 11 at rank 1. This also shows **distance is not a reliable relevance signal**: the most confident result here was the most wrong.
+2. **Embedding semantic gap.** The query says "three sections … who can access each," but the source chunks never use the words "three sections" — they use the Ge'ez proper nouns ("Maqdes," "Qeddusa Queddusan," "Qene Mahelet") and describe access prose-style. So the query embeds _far_ from the right chunks. Meanwhile a generic chunk dense with concrete church nouns (Cross, Censer, Chalice, vestments) scored the **lowest distance of any result in the whole eval (0.307)** and out-ranked the real answer, pushing it outside the top 4. I confirmed the data is indexed by re-querying with the proper nouns ("Maqdas Keddist Qene Mahelet who can enter") — that surfaces Worship chunk 11 at rank 1. This also shows **distance is not a reliable relevance signal**: the most confident result here was the most wrong.
 
 The generation stage then behaved correctly, refusing rather than hallucinating.
 
@@ -143,10 +145,14 @@ The generation stage then behaved correctly, refusing rather than hallucinating.
 
 - _What I gave the AI:_ My planning.md sources table (17 documents) and Chunking Strategy section (450/50, `RecursiveCharacterTextSplitter`, split on paragraph breaks first), and asked it to build `load_documents()` + chunking.
 - _What it produced:_ A loader handling **both web (requests/BeautifulSoup) and PDF** sources, plus the splitter configured to my numbers, with a generic noise-stripping `clean_text()`.
-- _What I changed or overrode:_ I directed it to go **PDF-only** (my reproducibility decision), then fixed PDF **filename mismatches** it had guessed wrong (underscores vs. spaces, so every PDF was being silently skipped). After inspecting the *actual* extracted text, I had it add corpus-specific cleaning the generic version missed — **dropping slide-deck cover/TOC pages** (the TOC was contaminating every Mystery deck with the other mysteries' topics) and stripping the ethiopianorthodox.org nav block, which its first regex hadn't matched because of a special character (`Franćais`).
+- _What I changed or overrode:_ I directed it to go **PDF-only** (my reproducibility decision), then fixed PDF **filename mismatches** it had guessed wrong (underscores vs. spaces, so every PDF was being silently skipped). After inspecting the _actual_ extracted text, I had it add corpus-specific cleaning the generic version missed — **dropping slide-deck cover/TOC pages** (the TOC was contaminating every Mystery deck with the other mysteries' topics) and stripping the ethiopianorthodox.org nav block, which its first regex hadn't matched because of a special character (`Franćais`).
 
 **Instance 2 — Embedding, retrieval, and honest evaluation (`embed.py`, `retrieve.py`)**
 
 - _What I gave the AI:_ My Retrieval Approach section (`all-MiniLM-L6-v2`, ChromaDB, top-k = 4) and asked for an `embed_and_store()` function and a `retrieve()` function, plus the planning verification step ("query for 'Abiy Tsom' and confirm the top result is correct").
 - _What it produced:_ Code that attaches the embedding model to the Chroma collection via `SentenceTransformerEmbeddingFunction` (so queries embed identically to stored chunks), batched embedding, and a top-4 retriever returning source metadata.
 - _What I changed or overrode:_ When the "Abiy Tsom" verification **failed** (it matched a bibliography chunk), I directed the AI to **characterize the failure honestly instead of tuning the corpus to pass it** — that analysis became my Failure Case material and Embedding tradeoff reflection. I also added an explicit `chunk_index` position field to the metadata (it had only encoded position in the chunk ID), and later **overrode the citation format**: the model was emitting `[Source 1: Mystery of Baptism]`, so I had the context passages re-labeled with just `[Mystery of Baptism]` as the header token so citations came back clean.
+
+## Demo
+
+<video controls src="Demo.mp4" title="Title"></video>
