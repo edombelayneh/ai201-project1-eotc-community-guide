@@ -22,24 +22,27 @@ The Ethiopian Orthodox Tewahedo Community Guide makes English-language knowledge
 <!-- List your specific sources: URLs, subreddit names, forum threads, or file descriptions.
      Aim for at least 10 sources that together cover different subtopics or perspectives within your domain. -->
 
-| #   | Source                                            | Description                                                                                                      | URL or location                                                                                |
-| --- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| 1   | Fasting and Abstinence in the EOTC                | Wikipedia article covering all seven canonical fasts, fasting rules, and optional fasts                          | https://en.wikipedia.org/wiki/Fasting_and_abstinence_in_the_Ethiopian_Orthodox_Tewahedo_Church |
-| 2   | The Great Lent                                    | MKVCM article explaining the 55-day fast, its eight weeks, and spiritual significance                            | https://eotcmk.org/e/the-great-lent/                                                           |
-| 3   | The Fast of the Apostles                          | MKVCM article covering the meaning, biblical basis, and blessings of the Apostles' Fast                          | https://eotcmk.org/e/the-fast-of-the-apostles-2/                                               |
-| 4   | Nineveh's Fast                                    | MKVCM article on the three-day fast commemorating Jonah's preaching to Nineveh                                   | https://eotcmk.org/e/tsome-nenewe/                                                             |
-| 5   | The Nativity Fast                                 | MKVCM article on the 43-day Prophets' Fast and its theological meaning                                           | https://eotcmk.org/e/the-nativity-fast/                                                        |
-| 6   | Why Did Prophets Fast?                            | MKVCM devotional piece on the spiritual purpose behind the Prophets' Fast                                        | https://eotcmk.org/e/why-did-prophets-fast/                                                    |
-| 7   | History of the Ethiopian Orthodox Tewahedo Church | Document covering apostolic origins, the Nine Saints, autocephaly, and diaspora growth                           | Local PDF                                                                                      |
-| 8   | Worship in the Ethiopian Orthodox Church          | ethiopianorthodox.org article covering church architecture, liturgy, prayer, and feast days                      | https://www.ethiopianorthodox.org/english/ethiopian/worship.html                               |
-| 9   | The Role of the EOTC in Literature and Art        | ethiopianorthodox.org article on Ge'ez literature, the 14 Anaphoras, and Ethiopian iconography                   | https://www.ethiopianorthodox.org/english/ethiopian/literature.html                            |
-| 10  | Introduction to Church Sacraments                 | ethiopianorthodox.org document on the definition and administration of the seven sacraments                      | https://www.ethiopianorthodox.org/english/dogma/sacramentintro.html                            |
-| 11  | The Bible (EOTC Canon)                            | ethiopianorthodox.org document listing all 81 canonical books and explaining the Sinodos and Didascalia          | https://www.ethiopianorthodox.org/english/canonical/books.html                                 |
-| 12  | Mystery of the Holy Trinity                       | MKVCM Dogmatic Theology 2020-21 slide deck covering the Trinity, Holy Spirit, and related heresies               | Local PDF                                                                                      |
-| 13  | Mystery of Incarnation                            | MKVCM Dogmatic Theology slide deck covering Christology and the miaphysite one-nature teaching                   | Local PDF                                                                                      |
-| 14  | Mystery of Baptism                                | MKVCM Dogmatic Theology slide deck covering baptism as sacrament, infant baptism, and symbols                    | Local PDF                                                                                      |
-| 15  | Mystery of Resurrection                           | MKVCM Dogmatic Theology slide deck covering resurrection of the dead, St. Paul's teaching, and the second coming | Local PDF                                                                                      |
-| 16  | Saint of the Day — St. Philotheus                 | MKVCM Synaxarium entry for January 24, illustrating the format of daily saint commemorations                     | https://eotcmk.org/e/saint-of-the-day/                                                         |
+All sources are saved as local PDFs under `docs/` and ingested offline — no live web fetching. The "Original source" column records where each PDF was sourced from for citation purposes.
+
+| #   | Source                                            | Description                                                                                                      | Local file (`docs/`)                                                       | Original source                                                                                |
+| --- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| 1   | Fasting and Abstinence in the EOTC                | Wikipedia article covering all seven canonical fasts, fasting rules, and optional fasts                          | Fasting and abstinence in the Ethiopian Orthodox Tewahedo Church.pdf       | https://en.wikipedia.org/wiki/Fasting_and_abstinence_in_the_Ethiopian_Orthodox_Tewahedo_Church |
+| 2   | The Great Lent                                    | MKVCM article explaining the 55-day fast, its eight weeks, and spiritual significance                            | The Great Lent.pdf                                                         | https://eotcmk.org/e/the-great-lent/                                                           |
+| 3   | The Fast of the Apostles                          | MKVCM article covering the meaning, biblical basis, and blessings of the Apostles' Fast                          | The Fast of the Apostles.pdf                                               | https://eotcmk.org/e/the-fast-of-the-apostles-2/                                               |
+| 4   | Nineveh's Fast                                    | MKVCM article on the three-day fast commemorating Jonah's preaching to Nineveh                                   | Nineveh's Fast.pdf                                                         | https://eotcmk.org/e/tsome-nenewe/                                                             |
+| 5   | The Nativity Fast                                 | MKVCM article on the 43-day Prophets' Fast and its theological meaning                                           | The Nativity Fast.pdf                                                      | https://eotcmk.org/e/the-nativity-fast/                                                        |
+| 6   | Why Did Prophets Fast?                            | MKVCM devotional piece on the spiritual purpose behind the Prophets' Fast                                        | Why did Prophets fast?.pdf                                                 | https://eotcmk.org/e/why-did-prophets-fast/                                                    |
+| 7   | History of the Ethiopian Orthodox Tewahedo Church | Document covering apostolic origins, the Nine Saints, autocephaly, and diaspora growth                           | History of the Ethiopian Orthodox Tewahedo Church.pdf                      | Local PDF                                                                                      |
+| 8   | Worship in the Ethiopian Orthodox Church          | ethiopianorthodox.org article covering church architecture, liturgy, prayer, and feast days                      | WORSHIP IN THE ETHIOPIAN ORTHODX CHURCH.pdf                                | https://www.ethiopianorthodox.org/english/ethiopian/worship.html                               |
+| 9   | The Role of the EOTC in Literature and Art        | ethiopianorthodox.org article on Ge'ez literature, the 14 Anaphoras, and Ethiopian iconography                   | THE ROLE OF THE ETHIOPIAN ORTHODOX CHURCH IN LITERATURE AND ART.pdf        | https://www.ethiopianorthodox.org/english/ethiopian/literature.html                            |
+| 10  | Introduction to Church Sacraments                 | ethiopianorthodox.org document on the definition and administration of the seven sacraments                      | Introduction to Church Sacraments.pdf                                      | https://www.ethiopianorthodox.org/english/dogma/sacramentintro.html                            |
+| 11  | The Bible (EOTC Canon)                            | ethiopianorthodox.org document listing all 81 canonical books and explaining the Sinodos and Didascalia          | The Bible.pdf                                                              | https://www.ethiopianorthodox.org/english/canonical/books.html                                 |
+| 12  | Mystery of the Holy Trinity                       | MKVCM Dogmatic Theology 2020-21 slide deck covering the Trinity, Holy Spirit, and related heresies               | 04_1st_Year_Dogmatic Theology_Mystery of the Holy Trinity.pdf             | Local PDF                                                                                      |
+| 13  | Mystery of Incarnation                            | MKVCM Dogmatic Theology slide deck covering Christology and the miaphysite one-nature teaching                   | 05_1st_Year_Dogmatic Theology_Mystery of Incarnation.pdf                  | Local PDF                                                                                      |
+| 14  | Mystery of Baptism                                | MKVCM Dogmatic Theology slide deck covering baptism as sacrament, infant baptism, and symbols                    | 06_1st_Year_Dogmatic Theology_Mystery of Baptism.pdf                      | Local PDF                                                                                      |
+| 15  | Mystery of Resurrection                           | MKVCM Dogmatic Theology slide deck covering resurrection of the dead, St. Paul's teaching, and the second coming | 08_1st_Year_Dogmatic Theology_Mystery of Resurrection.pdf                 | Local PDF                                                                                      |
+| 16  | Saint of the Day — St. Philotheus                 | MKVCM Synaxarium entry for January 24, illustrating the format of daily saint commemorations                     | Saints.pdf                                                                 | https://eotcmk.org/e/saint-of-the-day/                                                         |
+| 17  | Mystery of the Holy Eucharist                     | MKVCM Dogmatic Theology slide deck covering the Eucharist/Holy Communion as sacrament — the fifth pillar of mystery | 07_1st_Year_Dogmatic Theology_Mystery of Holy Communion.pdf               | Local PDF                                                                                      |
 
 ---
 
@@ -50,30 +53,48 @@ The Ethiopian Orthodox Tewahedo Community Guide makes English-language knowledge
      numbers fit the structure of your documents.
      A review-heavy corpus warrants different chunking than a long FAQ. -->
 
-**Chunk size:** 400 - 500 characters
+**Chunk size:** 400 - 500 characters (target 450)
 
 **Overlap:** 50 characters
 
-**Reasoning:**
+**Splitter:** LangChain `RecursiveCharacterTextSplitter`
+
+**How the split works:**
+
+The splitter is given a priority list of separators and cuts at the most natural
+boundary available, only falling back to the next when a piece is still over the
+size limit: `["\n\n", "\n", ". ", " ", ""]` — i.e. page break → line break →
+sentence → word → mid-word as a last resort.
+
+Note on the source documents: all 17 are extracted from PDFs with pdfplumber,
+which returns text line-by-line joined by single newlines (`\n`). True blank-line
+paragraph breaks do not survive extraction — the only `\n\n` present are the page
+boundaries inserted when joining pages. So in practice the splitter works from the
+line break (`\n`) level downward, preferring to cut at line, then sentence, then
+word boundaries. The first separator (`\n\n`) only matters at page edges.
+
+**Why 450 characters fits the documents:**
 
 The documents fall into three types:
 
 **Slide decks (Mysteries series):** Each slide covers one idea with a few bullet
-points and scripture references. A 400–500 token chunk fits one full slide —
+points and scripture references. A ~450 character chunk fits one full slide —
 small enough to stay focused, big enough to keep a teaching and its evidence
 together.
 
 **Fasting articles (MKVCM blog posts):** Short paragraphs, one fast per document.
-This chunk size groups 2–3 related paragraphs together naturally, like a definition
-plus its biblical basis.
+This chunk size groups 2–3 related paragraphs together, like a definition plus its
+biblical basis.
 
 **Longer documents (History, Worship, Literature & Art):** These have clear section
-headings. Each chunk stays within one section, and the heading is kept at the top
-so retrieved chunks always have context.
+headings, and a chunk stays roughly within one section.
 
-**Why 50-token overlap:** These documents sometimes finish a thought at the end of
-one paragraph and continue it in the next. A small overlap makes sure that
-connection isn't lost.
+**Why 50-character overlap:** Because sentences here often run 150–300 characters
+while chunks target 450, a chunk usually holds 2–3 sentences and will sometimes cut
+mid-sentence at a size boundary. The 50-character overlap repeats the tail of the
+previous chunk at the start of the next, so a thought split across a boundary is
+recoverable — the overlap, combined with top-k = 4 retrieval, is what compensates
+for unavoidable mid-sentence cuts at this chunk size.
 
 ---
 
@@ -122,7 +143,7 @@ connection isn't lost.
      Consider: noisy or inconsistent documents, missing source attribution, off-topic
      retrieval, chunks that split key information across boundaries. -->
 
-1. Chunks that split key information accross boundaries
+1. Chunks from the slide decks may split a scripture reference from the teaching point it supports, causing the LLM to retrieve a verse without its theological explanation.
 
 2. Language barrier (some of the information provided mught not contain the amharic version of a work). For example difference in answer between:
    - 'How long is Great Lent?' and 'How long is Abiy Tsome?'
@@ -157,10 +178,10 @@ connection isn't lost.
 ### 1. Document Ingestion
 
 - **Tool:** Claude
-- **Input:** My sources table (16 documents), the spec requirement to clean raw text,
-  and my document types (PDFs via pdfplumber, plain text for web pages)
-- **Expected output:** A `load_documents()` function that reads each file,
-  strips navigation text and repeated footers, and returns clean strings with
+- **Input:** My sources table (17 documents, all local PDFs under `docs/`), the spec
+  requirement to clean raw text, and my document type (PDFs extracted via pdfplumber)
+- **Expected output:** A `load_documents()` function that reads each PDF,
+  strips leftover navigation text and repeated footers, and returns clean strings with
   a source label attached to each
 - **Verification:** Print the first 500 characters of each loaded document and
   confirm no menu text, slide numbers, or URL artifacts remain
@@ -169,12 +190,13 @@ connection isn't lost.
 
 - **Tool:** Claude
 - **Input:** My chunking strategy section (400–500 characters, 50 character overlap,
-  RecursiveCharacterTextSplitter, split on paragraph breaks first)
+  RecursiveCharacterTextSplitter, separators page break → line → sentence → word)
 - **Expected output:** A `chunk_documents()` function that takes the cleaned documents
   and returns a list of chunks, each with its source label preserved as metadata
 - **Verification:** Print chunk count, average chunk length, and 3 sample chunks
-  from different documents — confirm no chunk cuts mid-sentence or drops its
-  source label
+  from different documents — confirm chunks are coherent and keep their source
+  label, and that any mid-sentence cuts at size boundaries are covered by the
+  50-character overlap
 
 ### 3. Embedding + Vector Store
 
@@ -207,9 +229,3 @@ connection isn't lost.
 - **Verification:** Run all 5 test questions end-to-end and check that every answer
   matches the expected answer in my evaluation table and includes at least one
   source citation — flag any response that introduces information not in the chunks
-
-**Milestone 3 — Ingestion and chunking:**
-
-**Milestone 4 — Embedding and retrieval:**
-
-**Milestone 5 — Generation and interface:**
